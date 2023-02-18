@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="test">This is the homepage</h1>
+<h2>Choose quiz:</h2>
+{% for _ in range(3) %}
+<p><a href="quiz/{{ _ + 1 }}" type="button">Quiz {{ _ + 1 }}.</a></p>
+{% endfor %}
+{% endblock content %}

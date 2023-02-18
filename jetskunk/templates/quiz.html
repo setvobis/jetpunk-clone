@@ -1,0 +1,47 @@
+<script type="text/javascript">
+    function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    var guessed = new Set();
+
+    function func() {
+        document.getElementById('userInput').focus();
+        var out = document.getElementById('userInput').value.toLowerCase();
+        document.getElementById(out).innerHTML = capitalizeFirstLetter(out);
+        document.getElementById('userInput').value = '';
+
+        if (!!out) {
+            guessed.add(out)
+            document.getElementById('guessed').innerHTML = guessed.size;
+        }
+        if (guessed.size == {{ len - 1 }}) {
+            alert('Congratulations!')
+        }
+    }
+</script>
+
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ quiz_data[0] }}</h1>
+<div class="myBox">
+    <h6>Type here:</h6>
+    <input type="text" name="input_field" id="userInput">
+    <input type="submit" value="Submit" onclick="func()">
+    <span>
+        <span id="guessed">0</span> / {{ len - 1 }}
+    </span>
+</div>
+<table>
+    {% for r in range(row_number) %}
+        <tr>
+            {% for c in range(col_number) %}
+                <td id="{{ quiz_data[r*5 + c + 1].lower() }}">?</td>
+            {% endfor %}
+        </tr>
+
+    {% endfor %}
+</table>
+
+{% endblock content %}
+
